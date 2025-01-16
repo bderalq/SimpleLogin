@@ -26,7 +26,7 @@ namespace SimpleLogin.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Register(User user )
+        public IActionResult Register(User user)
         {
             if (ModelState.IsValid)
             {
@@ -35,6 +35,7 @@ namespace SimpleLogin.Controllers
                 return RedirectToAction("Login");
 
             }
+            ViewBag.role = new SelectList(db.Roles, "RoleId", "RoleName");
             return View();
         }
         [HttpGet]
@@ -43,13 +44,15 @@ namespace SimpleLogin.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Login(User user) {
-            var data = db.Users.Where(x => x.Name==user.Name && x.Password == user.Password);
+        public IActionResult Login(User user)
+        {
+            var data = db.Users.Where(x => x.Name == user.Name && x.Password == user.Password);
 
             if (data.Any())
             {
                 return RedirectToAction("AllUsers");
-            } else
+            }
+            else
             {
                 return View();
             }
