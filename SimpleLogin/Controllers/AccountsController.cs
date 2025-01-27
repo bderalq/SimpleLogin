@@ -50,7 +50,11 @@ namespace SimpleLogin.Controllers
 
             if (data.Any())
             {
-                return RedirectToAction("AllUsers");
+                //set session 
+                string name = data.SingleOrDefault().Name.ToString();
+                HttpContext.Session.SetString("name", name);
+
+                return RedirectToAction("Index","Products");
             }
             else
             {
